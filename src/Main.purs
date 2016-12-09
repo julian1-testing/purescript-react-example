@@ -19,6 +19,9 @@ import Partial.Unsafe (unsafePartial)
 import React (ReactElement, ReactClass, createElement, createFactory, createClass, writeState, readState, spec, createClassStateless, getProps)
 import ReactDOM (render)
 
+
+-- import Data.List  
+
 foreign import interval :: forall eff a.
                              Int ->
                              Eff eff a ->
@@ -80,6 +83,23 @@ main :: forall eff. Eff (dom :: DOM | eff) Unit
 
 main = void (elm' >>= render ui)
   where
+
+
+  examples =
+      [ { title: "Algebraic Data Types"
+        , gist: "37c3c97f47a43f20c548"
+        }
+      , { title: "Loops"
+        , gist: "cfdabdcd085d4ac3dc46"
+        }
+      , { title: "Operators"
+        , gist: "3044550f29a7c5d3d0d0"
+        }
+      ]
+
+  x = map (\a -> D.text a.title) examples
+
+
   ui :: ReactElement
   ui = D.div' [ createFactory hello { name: "World" }
               , createFactory counter unit
@@ -92,7 +112,10 @@ main = void (elm' >>= render ui)
         ,
         D.div' [ createFactory hello { name: "World" }
             , createElement container unit
-              [  D.text  "This is line one" , D.text $ " " <> (toStringAs decimal 123) ]
+              -- [   D.text  "This is line one" , 
+              --    D.text $ " " <> (toStringAs decimal 123) ,
+                  x  
+              -- ]
             ]
 
         ]
