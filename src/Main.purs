@@ -75,6 +75,9 @@ counter = createClass counterSpec
                     ]
 
 main :: forall eff. Eff (dom :: DOM | eff) Unit
+
+
+
 main = void (elm' >>= render ui)
   where
   ui :: ReactElement
@@ -83,8 +86,16 @@ main = void (elm' >>= render ui)
               , createElement container unit
                               [ D.p [ P.key "1" ] [ D.text  "This is line one" ]
                               , D.p [ P.key "2" ] [ D.text "This is line two" ]
+                              , D.p [ P.key "3" ] [ D.text "This is line three" ]
                               ]
-              ]
+
+        ,
+        D.div' [ createFactory hello { name: "World" }
+            , createElement container unit
+              [  D.text  "This is line one" , D.text $ " " <> (toStringAs decimal 123) ]
+            ]
+
+        ]
 
   elm' :: Eff (dom :: DOM | eff) Element
   elm' = do
@@ -92,3 +103,6 @@ main = void (elm' >>= render ui)
     doc <- document win
     elm <- getElementById (ElementId "example") (documentToNonElementParentNode (htmlDocumentToDocument doc))
     pure $ unsafePartial fromJust (toMaybe elm)
+
+
+
