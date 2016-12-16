@@ -33,17 +33,23 @@ newtype AppState = AppState
 initialState :: AppState
 initialState = AppState { count: 0  }
 
+-- i think that createClass is the function to create a component...
+-- "React components let you split the UI into independent, reusable pieces,
+-- and think about each piece in isolation. React components can be defined by
+-- subclassing React.Component or React.PureComponent."
 
 hello :: forall props. ReactClass { name :: String | props }
 hello = createClass $ spec unit \ctx -> do
   props <- getProps ctx
-  pure $ D.h1 [ P.className "Hello"
+  pure $ D.h1 [ 
+                P.className "Hello"
               , P.style { background: "lightgray" }
               ]
-              [ D.text "Hello, "
-              , D.text props.name
-              , createElement (createClassStateless \props' -> D.div' [ D.text $ "Stateless" <> props'.test ])
-                                { test: " test" } []
+              [ D.text "Hello, ", 
+                D.text props.name, 
+                createElement (createClassStateless \props' -> 
+                  D.div' [ D.text $ "Stateless" <> props'.test ])
+                     { test: " test" } []
               ]
 
 
@@ -97,7 +103,7 @@ main = void (elm' >>= render ui)
         }
       ]
 
-  x = map (\a -> D.text a.title) examples
+  x = map (\a -> D.div' [ D.text a.title, D.text a.gist ]) examples
 
 
   ui :: ReactElement

@@ -9,7 +9,7 @@ container :: ReactClass Unit
 container = createClass $ spec unit \ctx -> do
   children <- getChildren ctx
 
-  let ui = D.div [ P.style { borderColor: "red"
+  let ui = D.div [ P.style { borderColor: "lightblue"
                            , borderWidth: 2
                            , borderStyle: "solid"
                            , padding: 10
